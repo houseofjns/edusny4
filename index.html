@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of J&S - ICT Mid-Term Examination</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --gold-light: #FCEABB;
+            --gold-primary: #D4AF37;
+            --gold-dark: #B8860B;
+            --gold-gradient: linear-gradient(135deg, #E6C27A 0%, #C59B27 100%);
+            --gold-gradient-hover: linear-gradient(135deg, #D4AF37 0%, #A67C00 100%);
+            --bg-color: #F8F9FA;
+            --white: #FFFFFF;
+            --text-main: #1A202C;
+            --text-muted: #718096;
+            --border-color: #E2E8F0;
+            --success: #2F855A;
+            --success-bg: #F0FFF4;
+            --error: #C53030;
+            --error-bg: #FFF5F5;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+            --shadow-lg: 0 12px 24px rgba(0,0,0,0.08);
+            --shadow-gold: 0 8px 20px rgba(212, 175, 55, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        input, textarea, select {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-container img { max-height: 55px; width: auto; border-radius: 6px; }
+        .header-title h1 { color: var(--text-main); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 2px; }
+        .header-title p { color: var(--gold-primary); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        #user-greeting {
+            display: none;
+            font-weight: 600;
+            color: var(--gold-dark);
+            background: var(--gold-light);
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+        #login-container {
+            max-width: 480px;
+            margin: 60px auto;
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            border-top: 6px solid var(--gold-primary);
+            text-align: center;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #login-container h2 { color: var(--text-main); margin-bottom: 10px; font-size: 2rem; }
+        #login-container p { color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; }
+
+        .form-group { margin-bottom: 25px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-main); font-size: 0.9rem; }
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #FAFAFA;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+            background-color: var(--white);
+        }
+        .form-hint { display: block; margin-top: 6px; font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+
+        .login-btn {
+            width: 100%; padding: 16px;
+            background: var(--gold-gradient); color: var(--white);
+            border: none; border-radius: 10px;
+            font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s ease; margin-top: 10px;
+            box-shadow: var(--shadow-gold);
+        }
+        .login-btn:hover { background: var(--gold-gradient-hover); transform: translateY(-3px); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4); }
+
+        .study-btn {
+            width: 100%; padding: 16px;
+            background-color: var(--white); color: var(--gold-dark);
+            border: 2px solid var(--gold-primary); border-radius: 10px;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s ease; margin-top: 15px;
+        }
+        .study-btn:hover { background-color: var(--gold-light); transform: translateY(-2px); }
+
+        .error-msg {
+            color: var(--error); background: var(--error-bg);
+            padding: 12px; border-radius: 8px; margin-bottom: 20px;
+            display: none; font-size: 0.9rem;
+            border: 1px solid #FEB2B2; animation: shake 0.4s;
+        }
+
+        #study-notes-container { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .notes-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; background: var(--white);
+            padding: 25px 30px; border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border-left: 6px solid var(--gold-primary);
+        }
+        .notes-header h2 { color: var(--text-main); margin: 0; font-size: 1.6rem; }
+
+        .unit-section {
+            background: var(--white); border-radius: 12px;
+            margin-bottom: 30px; box-shadow: var(--shadow-md);
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .unit-section:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .unit-header {
+            background: linear-gradient(to right, rgba(252, 234, 187, 0.4), var(--white));
+            padding: 20px 30px; border-bottom: 2px solid var(--gold-primary);
+        }
+        .unit-header h3 { color: var(--gold-dark); margin: 0; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        .unit-content { padding: 30px; }
+
+        .note-topic { margin-bottom: 25px; border-bottom: 1px dashed var(--border-color); padding-bottom: 20px; }
+        .note-topic:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .note-topic h4 {
+            color: var(--text-main); font-size: 1.15rem; margin-bottom: 12px;
+            display: flex; align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+        .note-topic h4::before { content: "✦"; color: var(--gold-primary); margin-right: 10px; font-size: 1.2rem; }
+        .note-text { color: var(--text-main); font-size: 0.95rem; margin-bottom: 12px; }
+        .note-list { list-style-type: none; margin-left: 5px; color: var(--text-main); font-size: 0.95rem; }
+        .note-list li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .note-list li::before {
+            content: "•"; color: var(--gold-primary);
+            font-weight: bold; font-size: 1.2rem;
+            position: absolute; left: 0; top: -2px;
+        }
+
+        #exam-container { display: none; animation: fadeIn 0.6s ease-in-out; }
+
+        .exam-info-card {
+            background: linear-gradient(135deg, var(--white) 0%, #FFFDF7 100%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 16px; padding: 40px 30px;
+            margin-bottom: 40px; box-shadow: var(--shadow-md);
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .exam-info-card::before {
+            content: ""; position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px; background: var(--gold-gradient);
+        }
+        .exam-info-card h2 { color: var(--text-main); margin-bottom: 10px; font-size: 2rem; }
+        .exam-info-card .set-badge {
+            display: inline-block; background: var(--gold-gradient); color: var(--white);
+            padding: 6px 20px; border-radius: 20px; font-weight: 700;
+            font-size: 0.95rem; margin-top: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .marks-breakdown { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 25px; }
+        .mark-item {
+            background: var(--white); padding: 10px 20px;
+            border-radius: 30px; box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem; font-weight: 600; color: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: 1.5rem; color: var(--text-main);
+            margin: 50px 0 25px 0; padding-bottom: 10px;
+            border-bottom: 3px solid var(--gold-primary);
+            display: flex; align-items: center; font-weight: 700;
+        }
+        .section-title span {
+            background: var(--gold-gradient); color: var(--white);
+            padding: 4px 12px; border-radius: 6px;
+            font-size: 0.9rem; margin-left: 15px;
+            font-family: 'Inter', sans-serif; box-shadow: var(--shadow-sm);
+        }
+
+        .question-card {
+            background-color: var(--white); border-radius: 12px;
+            padding: 30px; margin-bottom: 25px;
+            box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        .question-card:hover { box-shadow: var(--shadow-md); border-color: rgba(212, 175, 55, 0.3); }
+
+        .question-text {
+            font-weight: 600; margin-bottom: 20px; font-size: 1.1rem;
+            display: flex; justify-content: space-between;
+            align-items: flex-start; line-height: 1.5;
+        }
+        .marks-badge {
+            background-color: var(--gold-light); color: var(--gold-dark);
+            padding: 4px 10px; border-radius: 6px;
+            font-size: 0.8rem; font-weight: 800;
+            white-space: nowrap; margin-left: 15px;
+        }
+
+        .options label {
+            display: flex; align-items: center;
+            margin-bottom: 12px; cursor: pointer;
+            padding: 15px 20px; border-radius: 10px;
+            border: 2px solid var(--border-color);
+            transition: all 0.2s ease;
+            font-weight: 500; color: var(--text-main);
+        }
+        .options label:hover {
+            background-color: #FAFAFA;
+            border-color: var(--gold-primary);
+            transform: translateX(5px);
+        }
+        .options input[type="radio"] {
+            appearance: none; -webkit-appearance: none;
+            width: 22px; height: 22px;
+            border: 2px solid #CBD5E0; border-radius: 50%;
+            margin-right: 15px; position: relative; outline: none;
+            transition: all 0.2s; flex-shrink: 0;
+            background-color: var(--white);
+        }
+        .options input[type="radio"]:checked {
+            border-color: var(--gold-primary);
+            background-color: var(--gold-primary);
+            box-shadow: inset 0 0 0 4px var(--white);
+        }
+        .options input[type="radio"]:checked + span { color: var(--gold-dark); font-weight: 700; }
+
+        .textarea-input {
+            width: 100%; padding: 15px 20px;
+            border: 2px solid var(--border-color); border-radius: 10px;
+            font-family: 'Inter', sans-serif; font-size: 1rem;
+            transition: all 0.3s ease; background-color: #FAFAFA;
+            resize: vertical; min-height: 90px; color: var(--text-main);
+        }
+        input.textarea-input { min-height: 50px; }
+        .textarea-input:focus {
+            outline: none; border-color: var(--gold-primary);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+            background-color: var(--white);
+        }
+
+        .order-container { display: flex; flex-direction: column; gap: 12px; }
+        .order-step {
+            display: flex; align-items: center; gap: 15px;
+            background: #FAFAFA; padding: 12px 20px;
+            border-radius: 10px; border: 1px solid var(--border-color);
+            transition: border-color 0.2s;
+        }
+        .order-step:focus-within { border-color: var(--gold-primary); background: var(--white); }
+        .order-label { font-weight: 700; color: var(--gold-dark); min-width: 70px; font-size: 0.95rem; }
+        .order-select {
+            flex-grow: 1; padding: 12px; border-radius: 8px;
+            border: 1px solid #CBD5E0; font-family: 'Inter', sans-serif;
+            background-color: var(--white); cursor: pointer;
+            font-size: 0.95rem; color: var(--text-main); outline: none;
+        }
+        .order-select:focus { border-color: var(--gold-primary); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+
+        .submit-btn {
+            display: block; width: 100%; padding: 20px;
+            background: var(--gold-gradient); color: var(--white);
+            border: none; border-radius: 12px;
+            font-size: 1.3rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s ease; margin-top: 50px;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            box-shadow: var(--shadow-gold);
+        }
+        .submit-btn:hover { background: var(--gold-gradient-hover); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4); }
+
+        #result-container { display: none; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .score-card {
+            background: var(--white); border-radius: 16px;
+            padding: 50px 40px; text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 40px; position: relative; overflow: hidden;
+        }
+        .score-card::before {
+            content: ""; position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px; background: var(--gold-gradient);
+        }
+        .score-card h2 { font-size: 2.2rem; color: var(--text-main); margin-bottom: 10px; }
+        .score-display {
+            font-size: 5rem; font-weight: 800;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1; margin: 25px 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .score-display span {
+            font-size: 2rem; color: var(--text-muted);
+            -webkit-text-fill-color: var(--text-muted); font-weight: 500;
+        }
+        .score-sub { color: var(--text-muted); font-size: 0.95rem; }
+
+        .result-breakdown {
+            background: var(--white); border-radius: 16px;
+            padding: 40px; box-shadow: var(--shadow-md);
+        }
+        .result-breakdown h3 {
+            font-size: 1.5rem; margin-bottom: 25px;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .result-item {
+            padding: 20px; margin-bottom: 15px;
+            border-radius: 10px; border-left: 6px solid #CBD5E0;
+            background-color: #FAFAFA; font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .result-item:hover { transform: translateX(5px); }
+        .result-item.correct { border-left-color: var(--success); background-color: var(--success-bg); }
+        .result-item.incorrect { border-left-color: var(--error); background-color: var(--error-bg); }
+        .result-item strong {
+            display: block; margin-bottom: 8px;
+            color: var(--text-main); font-size: 1.05rem;
+        }
+        .result-item strong .q-num {
+            display: inline-block;
+            background: var(--gold-gradient);
+            color: var(--white);
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+        .answer-detail {
+            display: flex; flex-direction: column; gap: 8px;
+            margin-top: 10px; font-size: 0.95rem;
+            background: rgba(255,255,255,0.7);
+            padding: 12px; border-radius: 6px;
+        }
+        .answer-detail > div { padding: 6px 10px; border-radius: 4px; }
+        .your-answer-text { color: var(--error); font-weight: 700; }
+        .correct-answer-text { color: var(--success); font-weight: 700; }
+        .blank-text { color: var(--text-muted); font-style: italic; }
+
+        .action-buttons {
+            display: flex; justify-content: center;
+            gap: 20px; margin-top: 40px; flex-wrap: wrap;
+        }
+        .retake-btn, .review-btn {
+            padding: 15px 35px; border-radius: 10px;
+            font-weight: 700; transition: all 0.3s;
+            cursor: pointer; border: none;
+            text-decoration: none; font-size: 1rem;
+        }
+        .retake-btn { background-color: var(--text-main); color: var(--white); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .retake-btn:hover { background-color: #000; transform: translateY(-2px); }
+        .review-btn { background-color: var(--white); color: var(--gold-dark); border: 2px solid var(--gold-primary); }
+        .review-btn:hover { background-color: var(--gold-light); transform: translateY(-2px); }
+
+        .watermark {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 8rem; color: rgba(212, 175, 55, 0.03);
+            pointer-events: none; z-index: -1;
+            white-space: nowrap; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 15px; padding: 15px 20px; }
+            .header-title h1 { font-size: 1.3rem; }
+            .order-step { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .score-display { font-size: 4rem; }
+            .notes-header { flex-direction: column; gap: 20px; text-align: center; }
+            .question-text { flex-direction: column; }
+            .marks-badge { margin-left: 0; margin-top: 10px; align-self: flex-start; }
+            .result-breakdown { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="watermark">House of J&S</div>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo1.png" alt="J&S Logo" onerror="this.style.display='none'">
+            <div class="header-title">
+                <h1>House of J&S</h1>
+                <p>Computer Training Center</p>
+            </div>
+        </div>
+        <div id="user-greeting">Welcome, <span id="display-name"></span></div>
+    </header>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-container">
+        <h2>Student Login</h2>
+        <p>Please enter your details to access the Mid-Term Exam.</p>
+
+        <div id="login-error" class="error-msg"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="studentName">Student Name</label>
+                <input type="text" id="studentName" class="form-control" placeholder="e.g. John Doe" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="studentPassword">Exam Password</label>
+                <input type="password" id="studentPassword" class="form-control" placeholder="Enter password" required>
+            </div>
+            <div class="form-group">
+                <label for="examSetSelect">Select Exam Set</label>
+                <select id="examSetSelect" class="form-control" required>
+                    <option value="A">Set A</option>
+                    <option value="B">Set B</option>
+                </select>
+                <small class="form-hint">Your teacher will tell you which set to take.</small>
+            </div>
+            <button type="submit" class="login-btn">Login to Exam</button>
+            <button type="button" class="study-btn" onclick="showNotes()">📚 Study Notes (အသေးစိတ်လေ့လာရန်)</button>
+        </form>
+    </div>
+
+    <!-- STUDY NOTES -->
+    <div class="container" id="study-notes-container">
+        <div class="notes-header">
+            <h2>📚 Mid-Term Study Notes</h2>
+            <button type="button" class="retake-btn" style="padding: 10px 25px; font-size: 0.9rem;" onclick="showLogin()">⬅ Back to Login</button>
+        </div>
+
+        <div class="unit-section">
+            <div class="unit-header"><h3>📘 Unit 1: Creative Media</h3></div>
+            <div class="unit-content">
+                <div class="note-topic">
+                    <h4>1.1 Start a new document</h4>
+                    <p class="note-text">When you create a document, you will see a blank page.</p>
+                    <ul class="note-list">
+                        <li><strong>Cursor:</strong> The blinking line that shows where your text will appear.</li>
+                        <li><strong>Margins:</strong> The blank space at the edges of the page.</li>
+                        <li><strong>Paragraph break:</strong> Press <em>Enter</em> to start a new paragraph (adds a gap).</li>
+                        <li><strong>Line break:</strong> Press <em>Shift + Enter</em> to move to the next line without a gap.</li>
+                        <li><strong>Screen Reader:</strong> An assistive technology that reads text out loud.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>1.2 Select and change text</h4>
+                    <ul class="note-list">
+                        <li><strong>Fonts:</strong> <em>Serif</em> (small lines, easy to read) vs <em>Sans-serif</em> (no lines, modern).</li>
+                        <li><strong>Alignment:</strong> Left, Center, Right, Justified.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>1.3 Add headings and lists</h4>
+                    <ul class="note-list">
+                        <li><strong>Bulleted list:</strong> Use when order doesn't matter.</li>
+                        <li><strong>Numbered list:</strong> Use when order matters.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>1.4 Help readers find things</h4>
+                    <ul class="note-list">
+                        <li><strong>Header:</strong> Top of every page.</li>
+                        <li><strong>Footer:</strong> Bottom of every page.</li>
+                        <li><strong>Table of Contents:</strong> List of headings at the beginning.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>1.5 Edit together & finalize</h4>
+                    <ul class="note-list">
+                        <li><strong>Track Changes:</strong> Shows edits, can Accept/Reject.</li>
+                        <li><strong>Comments:</strong> Notes in the margin.</li>
+                        <li><strong>Find and Replace:</strong> Change words all at once.</li>
+                        <li><strong>Spell Checker:</strong> Underlines mistakes in red.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="unit-section">
+            <div class="unit-header"><h3>📙 Unit 2: Digital Literacy</h3></div>
+            <div class="unit-content">
+                <div class="note-topic">
+                    <h4>2.1 Search engines and links</h4>
+                    <ul class="note-list">
+                        <li><strong>Web Browser:</strong> Software to access the internet (Chrome, Safari).</li>
+                        <li><strong>Search Engine:</strong> Website to find info (Google, Bing).</li>
+                        <li><strong>Keywords:</strong> Short, specific search terms.</li>
+                        <li><strong>Hyperlinks:</strong> Clickable text that takes you to another page.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>2.2 Useful websites & reliability</h4>
+                    <ul class="note-list">
+                        <li>Use quotation marks for exact matches.</li>
+                        <li>Check author, update date, fact vs opinion.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>2.3 Good and bad</h4>
+                    <ul class="note-list">
+                        <li>Bad side: wrong info, unkind behavior, scams. Tell a trusted adult if upset.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>2.4 Bookmarks & images</h4>
+                    <ul class="note-list">
+                        <li><strong>Bookmark:</strong> Saves a website link for later.</li>
+                        <li>Ask permission before using pictures.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>2.5 Stay safe</h4>
+                    <ul class="note-list">
+                        <li><strong>Privacy Settings:</strong> Control who sees your profile.</li>
+                        <li>Don't share personal info with strangers.</li>
+                        <li>Don't open unknown files.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>2.6 Give feedback</h4>
+                    <ul class="note-list">
+                        <li>Be positive. Ask: "How would I feel if someone said this to me?"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="unit-section">
+            <div class="unit-header"><h3>📗 Unit 3: Computational Thinking</h3></div>
+            <div class="unit-content">
+                <div class="note-topic">
+                    <h4>3.1 Think of a number</h4>
+                    <ul class="note-list">
+                        <li><strong>Variable:</strong> A place in memory that holds a value.</li>
+                        <li><strong>Ask block:</strong> Gets information from the user.</li>
+                        <li><strong>Answer block:</strong> Stores the user's input.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>3.2-3.3 Two numbers & total</h4>
+                    <ul class="note-list">
+                        <li><strong>Operator:</strong> + - * / symbols.</li>
+                        <li>Store answer of number1 + number2 in a 'total' variable.</li>
+                    </ul>
+                </div>
+                <div class="note-topic">
+                    <h4>3.4-3.6 Answer & check</h4>
+                    <ul class="note-list">
+                        <li><strong>Logical Test:</strong> Compares two values (answer = total?).</li>
+                        <li><strong>If...then:</strong> Do something only if true.</li>
+                        <li><strong>If...else:</strong> Do one thing if true, another if false.</li>
+                        <li><strong>Flowchart:</strong> Diagram of a program's steps.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+            <button type="button" class="login-btn" style="max-width: 300px; margin: 0 auto;" onclick="showLogin()">I'm Ready! Go to Login</button>
+        </div>
+    </div>
+
+    <!-- EXAM -->
+    <div class="container" id="exam-container">
+        <div class="exam-info-card">
+            <h2 id="exam-title">ICT Mid-Term Examination</h2>
+            <div class="set-badge" id="exam-set-badge">Set A</div>
+            <p style="margin-top: 15px; color: var(--text-muted);">Please read all questions carefully before answering. You have one attempt to submit.</p>
+            <div class="marks-breakdown">
+                <div class="mark-item">Part 1: MCQ (20 Mks)</div>
+                <div class="mark-item">Part 2: True/False (10 Mks)</div>
+                <div class="mark-item">Part 3: Fill in Blanks (20 Mks)</div>
+                <div class="mark-item">Part 4: Short Qs (20 Mks)</div>
+                <div class="mark-item">Part 5: Block Code (30 Mks)</div>
+            </div>
+        </div>
+
+        <form id="examForm">
+            <!-- Questions rendered by JavaScript -->
+        </form>
+
+        <div id="result-container">
+            <div class="score-card">
+                <h2 id="result-greeting">Examination Completed</h2>
+                <div class="score-display" id="score-display">0<span>/100</span></div>
+                <p class="score-sub" id="result-set-label">Set A</p>
+            </div>
+
+            <div class="result-breakdown" id="detailed-results">
+                <h3>Detailed Question Review</h3>
+            </div>
+
+            <div class="action-buttons">
+                <button onclick="showNotes()" class="review-btn">📚 Review Study Notes</button>
+                <button onclick="location.reload()" class="retake-btn">Logout &amp; Retake</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // ANTI-CHEAT
+        // ============================================
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) ||
+                (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                e.preventDefault();
+                alert("Developer tools and copying are disabled during the exam.");
+            }
+        });
+
+        // ============================================
+        // EXAM DATA - BOTH SETS
+        // ============================================
+        const EXAM_DATA = {
+            A: {
+                label: "Set A",
+                mcq: [
+                    { text: "What does a word processing application allow you to do?",
+                      options: [
+                        { value: "A", label: "Create and edit documents" },
+                        { value: "B", label: "Design 3D models" },
+                        { value: "C", label: "Hack websites" },
+                        { value: "D", label: "Build computer hardware" }
+                      ], answer: "A" },
+                    { text: "Which key do you press to start a new paragraph?",
+                      options: [
+                        { value: "A", label: "Shift" },
+                        { value: "B", label: "Enter" },
+                        { value: "C", label: "Tab" },
+                        { value: "D", label: "Spacebar" }
+                      ], answer: "B" },
+                    { text: "What is the blinking line that shows where your text will appear called?",
+                      options: [
+                        { value: "A", label: "Margin" },
+                        { value: "B", label: "Cursor" },
+                        { value: "C", label: "Font" },
+                        { value: "D", label: "Alignment" }
+                      ], answer: "B" },
+                    { text: "Which type of font has small lines at the ends of letters and is easy to read in large amounts of text?",
+                      options: [
+                        { value: "A", label: "Sans-serif" },
+                        { value: "B", label: "Serif" },
+                        { value: "C", label: "Monospace" },
+                        { value: "D", label: "Cursive" }
+                      ], answer: "B" },
+                    { text: "What allows multiple people to work on a document and see each other's edits?",
+                      options: [
+                        { value: "A", label: "Track Changes" },
+                        { value: "B", label: "Spell Check" },
+                        { value: "C", label: "Save As" },
+                        { value: "D", label: "Print" }
+                      ], answer: "A" },
+                    { text: "Where is the header usually located in a document?",
+                      options: [
+                        { value: "A", label: "At the bottom of the page" },
+                        { value: "B", label: "In the middle of the text" },
+                        { value: "C", label: "At the top of the page" },
+                        { value: "D", label: "In the margin" }
+                      ], answer: "C" },
+                    { text: "What helps a reader find different parts or chapters in a long document?",
+                      options: [
+                        { value: "A", label: "A picture" },
+                        { value: "B", label: "A table of contents" },
+                        { value: "C", label: "A page number" },
+                        { value: "D", label: "A footer" }
+                      ], answer: "B" },
+                    { text: "What feature allows you to find a specific word and change it to another word all at once?",
+                      options: [
+                        { value: "A", label: "Spell Check" },
+                        { value: "B", label: "Find and Replace" },
+                        { value: "C", label: "Copy and Paste" },
+                        { value: "D", label: "Bold and Italic" }
+                      ], answer: "B" },
+                    { text: "What is a search engine used for?",
+                      options: [
+                        { value: "A", label: "Editing photos" },
+                        { value: "B", label: "Finding information on the internet" },
+                        { value: "C", label: "Playing offline games" },
+                        { value: "D", label: "Typing documents" }
+                      ], answer: "B" },
+                    { text: "What is Google Chrome, Safari, or Microsoft Edge an example of?",
+                      options: [
+                        { value: "A", label: "A web browser" },
+                        { value: "B", label: "A search engine" },
+                        { value: "C", label: "A word processor" },
+                        { value: "D", label: "A programming language" }
+                      ], answer: "A" },
+                    { text: "What is a bookmark used for?",
+                      options: [
+                        { value: "A", label: "To save a website to visit later" },
+                        { value: "B", label: "To turn off the computer" },
+                        { value: "C", label: "To print a page" },
+                        { value: "D", label: "To delete a file" }
+                      ], answer: "A" },
+                    { text: "When searching the web, what should you use to find the best results?",
+                      options: [
+                        { value: "A", label: "Very long sentences" },
+                        { value: "B", label: "Good search terms (keywords)" },
+                        { value: "C", label: "Random letters" },
+                        { value: "D", label: "Only one word" }
+                      ], answer: "B" },
+                    { text: "What should you check to know if a website is trustworthy?",
+                      options: [
+                        { value: "A", label: "If it has bright colors" },
+                        { value: "B", label: "If it is a fact or opinion, and who wrote it" },
+                        { value: "C", label: "If it has pop-up ads" },
+                        { value: "D", label: "If it was the first link" }
+                      ], answer: "B" },
+                    { text: "What should you do to keep yourself safe online?",
+                      options: [
+                        { value: "A", label: "Share your address with strangers" },
+                        { value: "B", label: "Use privacy settings and don't talk to strangers" },
+                        { value: "C", label: "Click on every pop-up" },
+                        { value: "D", label: "Share your passwords with friends" }
+                      ], answer: "B" },
+                    { text: "What is the internet?",
+                      options: [
+                        { value: "A", label: "A single computer" },
+                        { value: "B", label: "A network of computers connected worldwide" },
+                        { value: "C", label: "A type of software" },
+                        { value: "D", label: "A video game" }
+                      ], answer: "B" },
+                    { text: 'In programming, what is a "variable"?',
+                      options: [
+                        { value: "A", label: "A place in memory that holds a value" },
+                        { value: "B", label: "A type of computer screen" },
+                        { value: "C", label: "A keyboard shortcut" },
+                        { value: "D", label: "A way to print documents" }
+                      ], answer: "A" },
+                    { text: "In Scratch, which block is used to get input from the user?",
+                      options: [
+                        { value: "A", label: '"say"' },
+                        { value: "B", label: '"ask"' },
+                        { value: "C", label: '"set"' },
+                        { value: "D", label: '"move"' }
+                      ], answer: "B" },
+                    { text: 'What is an "operator" in programming?',
+                      options: [
+                        { value: "A", label: "A person who fixes computers" },
+                        { value: "B", label: "A math symbol like + or - that changes values" },
+                        { value: "C", label: "A type of font" },
+                        { value: "D", label: "A search engine" }
+                      ], answer: "B" },
+                    { text: "What is the process of checking if a fact on the internet is true called?",
+                      options: [
+                        { value: "A", label: "Fact-checking" },
+                        { value: "B", label: "Bookmarking" },
+                        { value: "C", label: "Formatting" },
+                        { value: "D", label: "Coding" }
+                      ], answer: "A" },
+                    { text: "What should you do if someone online says something unkind to you?",
+                      options: [
+                        { value: "A", label: "Reply angrily" },
+                        { value: "B", label: "Tell a trusted adult" },
+                        { value: "C", label: "Ignore it and keep chatting" },
+                        { value: "D", label: "Delete your account immediately" }
+                      ], answer: "B" }
+                ],
+                tf: [
+                    { text: "You should use long, complicated sentences as search terms.", answer: "False" },
+                    { text: "It is safe to share your home address and phone number online with strangers.", answer: "False" },
+                    { text: "Track Changes is a feature that shows what edits have been made to a document.", answer: "True" },
+                    { text: "A cursor shows where text will appear when you start typing.", answer: "True" },
+                    { text: "You cannot change the color or size of text in a word processor.", answer: "False" },
+                    { text: "Google is an example of a web browser.", answer: "False" },
+                    { text: "You should click on every pop-up you see on the internet.", answer: "False" },
+                    { text: "A variable in programming can hold a value until you need it later.", answer: "True" },
+                    { text: "In Scratch, you can use operators to add two numbers together.", answer: "True" },
+                    { text: "A table of contents is usually found at the very end of a document.", answer: "False" }
+                ],
+                fill: [
+                    { text: "The blinking line that shows where text will appear is called a ______.", answer: "cursor" },
+                    { text: "______ fonts have small lines at the ends of letters and are easy to read in large amounts of text.", answer: "serif" },
+                    { text: "To make a list with dots, you should use a ______ list.", answer: "bulleted" },
+                    { text: "A ______ is placed at the top of every page to show information like the document title.", answer: "header" },
+                    { text: "You can use a ______ engine to find information on the internet.", answer: "search" },
+                    { text: "To save a website so you can easily visit it again, you can create a ______.", answer: "bookmark" },
+                    { text: "Always check your ______ settings on social media to control who sees your posts.", answer: "privacy" },
+                    { text: "In Scratch, a ______ is a place in memory that holds a value.", answer: "variable" },
+                    { text: "The ______ block in Scratch is used to ask the user for input.", answer: "ask" },
+                    { text: "When you add two numbers together, the answer is called the ______.", answer: "total" }
+                ],
+                short: [
+                    { text: "What is the difference between a search engine and a web browser?",
+                      keywords: ["search engine finds", "browser displays", "search engine gives links", "browser shows website", "find information", "view websites"] },
+                    { text: "Why is it important to use privacy settings online?",
+                      keywords: ["protect", "safe", "strangers", "control who sees", "personal information"] },
+                    { text: "Name three things you can do with a word processing application.",
+                      keywords: ["create document", "edit text", "format", "save", "print", "add images", "tables"] },
+                    { text: 'Explain what a "variable" is in programming and give an example.',
+                      keywords: ["place in memory", "holds a value", "stores data", "like a box", "name and value"] },
+                    { text: "How can you check if a fact you read on a website is true?",
+                      keywords: ["check author", "fact or opinion", "compare with other sites", "check date", "trusted website"] }
+                ],
+                order: [
+                    { text: "Order the steps to ask a user for their name and say it back.",
+                      options: [
+                        { value: "A", label: 'ask "What is your name?" and wait' },
+                        { value: "B", label: "when green flag clicked" },
+                        { value: "C", label: 'say (join "Hello " answer)' }
+                      ], answer: ["B", "A", "C"] },
+                    { text: "Order the steps to create a variable and set it to 10.",
+                      options: [
+                        { value: "A", label: 'Click "Make a Variable"' },
+                        { value: "B", label: "Go to Variables menu" },
+                        { value: "C", label: 'Drag "set my variable to 10"' }
+                      ], answer: ["B", "A", "C"] },
+                    { text: "Order the steps for a simple math quiz (add two numbers).",
+                      options: [
+                        { value: "A", label: 'Set "total" to number1 + number2' },
+                        { value: "B", label: 'Ask "Type first number" and set number1 to answer' },
+                        { value: "C", label: 'Ask "Type second number" and set number2 to answer' }
+                      ], answer: ["B", "C", "A"] },
+                    { text: "Order the steps to create a bulleted list in a document.",
+                      options: [
+                        { value: "A", label: "Click the bullet list button" },
+                        { value: "B", label: "Open the document and type the first item" },
+                        { value: "C", label: "Press Enter to make the next bullet" }
+                      ], answer: ["B", "A", "C"] },
+                    { text: "Order the steps to add a header to a document.",
+                      options: [
+                        { value: "A", label: "Double-click the top margin area" },
+                        { value: "B", label: "Open the Insert menu" },
+                        { value: "C", label: "Type your text in the header box" }
+                      ], answer: ["B", "A", "C"] },
+                    { text: "Order the steps to check if a website is reliable.",
+                      options: [
+                        { value: "A", label: "Look at who wrote it (author)" },
+                        { value: "B", label: "Check if it is a fact or opinion" },
+                        { value: "C", label: "Compare with another website" }
+                      ], answer: ["A", "B", "C"] }
+                ]
+            },
+            B: {
+                label: "Set B",
+                mcq: [
+                    { text: "What is the blank space at the edges of a page called?",
+                      options: [
+                        { value: "A", label: "Cursor" },
+                        { value: "B", label: "Margin" },
+                        { value: "C", label: "Header" },
+                        { value: "D", label: "Footer" }
+                      ], answer: "B" },
+                    { text: "Which shortcut key is used to move to the next line without starting a new paragraph?",
+                      options: [
+                        { value: "A", label: "Enter" },
+                        { value: "B", label: "Ctrl + Enter" },
+                        { value: "C", label: "Shift + Enter" },
+                        { value: "D", label: "Alt + Enter" }
+                      ], answer: "C" },
+                    { text: "Which of the following is an assistive technology that reads text out loud?",
+                      options: [
+                        { value: "A", label: "Screen reader" },
+                        { value: "B", label: "Spell checker" },
+                        { value: "C", label: "Track changes" },
+                        { value: "D", label: "Find and replace" }
+                      ], answer: "A" },
+                    { text: "Which type of font is modern and does NOT have small lines at the ends of letters?",
+                      options: [
+                        { value: "A", label: "Serif" },
+                        { value: "B", label: "Sans-serif" },
+                        { value: "C", label: "Cursive" },
+                        { value: "D", label: "Monospace" }
+                      ], answer: "B" },
+                    { text: "Which alignment option spreads text evenly across the page?",
+                      options: [
+                        { value: "A", label: "Left-aligned" },
+                        { value: "B", label: "Center-aligned" },
+                        { value: "C", label: "Right-aligned" },
+                        { value: "D", label: "Justified" }
+                      ], answer: "D" },
+                    { text: "When the order of items matters, which list should you use?",
+                      options: [
+                        { value: "A", label: "Bulleted list" },
+                        { value: "B", label: "Numbered list" },
+                        { value: "C", label: "Picture list" },
+                        { value: "D", label: "Header list" }
+                      ], answer: "B" },
+                    { text: "Where is the footer located in a document?",
+                      options: [
+                        { value: "A", label: "At the top of the page" },
+                        { value: "B", label: "In the middle of the page" },
+                        { value: "C", label: "At the bottom of the page" },
+                        { value: "D", label: "In the left margin" }
+                      ], answer: "C" },
+                    { text: "What is a note left in the margin to share thoughts without changing the text called?",
+                      options: [
+                        { value: "A", label: "Header" },
+                        { value: "B", label: "Comment" },
+                        { value: "C", label: "Bookmark" },
+                        { value: "D", label: "Footnote" }
+                      ], answer: "B" },
+                    { text: "What does the spell checker underline with a red line?",
+                      options: [
+                        { value: "A", label: "Grammar mistakes" },
+                        { value: "B", label: "Spelling mistakes" },
+                        { value: "C", label: "Formatting errors" },
+                        { value: "D", label: "Punctuation errors" }
+                      ], answer: "B" },
+                    { text: "Which of the following is an example of a search engine?",
+                      options: [
+                        { value: "A", label: "Chrome" },
+                        { value: "B", label: "Safari" },
+                        { value: "C", label: "Bing" },
+                        { value: "D", label: "Firefox" }
+                      ], answer: "C" },
+                    { text: "What is clickable text that takes you to another webpage called?",
+                      options: [
+                        { value: "A", label: "A keyword" },
+                        { value: "B", label: "A hyperlink (web link)" },
+                        { value: "C", label: "A bookmark" },
+                        { value: "D", label: "A cursor" }
+                      ], answer: "B" },
+                    { text: "What should you put around words to search for an exact match?",
+                      options: [
+                        { value: "A", label: "Brackets [ ]" },
+                        { value: "B", label: "Quotation marks" },
+                        { value: "C", label: "Parentheses ( )" },
+                        { value: "D", label: "Asterisks * *" }
+                      ], answer: "B" },
+                    { text: 'Which of the following is a "bad" side of the internet?',
+                      options: [
+                        { value: "A", label: "Learning new things" },
+                        { value: "B", label: "Finding information" },
+                        { value: "C", label: "People posting wrong information" },
+                        { value: "D", label: "Playing games" }
+                      ], answer: "C" },
+                    { text: "What should you do before using pictures from the internet for school work?",
+                      options: [
+                        { value: "A", label: "Copy them without asking" },
+                        { value: "B", label: "Ask for permission" },
+                        { value: "C", label: "Delete them after use" },
+                        { value: "D", label: "Print them first" }
+                      ], answer: "B" },
+                    { text: "What should you do if you receive a file from someone you don't know?",
+                      options: [
+                        { value: "A", label: "Open it immediately" },
+                        { value: "B", label: "Forward it to friends" },
+                        { value: "C", label: "Do not open it" },
+                        { value: "D", label: "Save it to your desktop" }
+                      ], answer: "C" },
+                    { text: "When giving feedback online, which question should you ask yourself?",
+                      options: [
+                        { value: "A", label: '"How can I make this person angry?"' },
+                        { value: "B", label: '"How would I feel if someone said this to me?"' },
+                        { value: "C", label: '"Can I get more likes?"' },
+                        { value: "D", label: '"Is this the funniest comment?"' }
+                      ], answer: "B" },
+                    { text: 'In Scratch, where is the user\'s input automatically stored after using the "ask" block?',
+                      options: [
+                        { value: "A", label: 'In a variable called "input"' },
+                        { value: "B", label: 'In the "answer" variable' },
+                        { value: "C", label: 'In the "total" variable' },
+                        { value: "D", label: 'In the "number1" variable' }
+                      ], answer: "B" },
+                    { text: "Which block should you use to check a condition and do something only if it is true?",
+                      options: [
+                        { value: "A", label: "If...then block" },
+                        { value: "B", label: "Say block" },
+                        { value: "C", label: "Move block" },
+                        { value: "D", label: "Ask block" }
+                      ], answer: "A" },
+                    { text: "What is a diagram that shows the steps of a program using arrows and shapes called?",
+                      options: [
+                        { value: "A", label: "A table of contents" },
+                        { value: "B", label: "A flowchart" },
+                        { value: "C", label: "A bookmark" },
+                        { value: "D", label: "A header" }
+                      ], answer: "B" },
+                    { text: "Why should you give variables clear names in programming?",
+                      options: [
+                        { value: "A", label: "To make the program run faster" },
+                        { value: "B", label: "So you remember what they hold" },
+                        { value: "C", label: "To make the screen colorful" },
+                        { value: "D", label: "To hide them from the user" }
+                      ], answer: "B" }
+                ],
+                tf: [
+                    { text: "Margins are the blank spaces at the edges of a page.", answer: "True" },
+                    { text: "Pressing Enter creates a line break without a gap between lines.", answer: "False" },
+                    { text: "Serif fonts are recommended for long texts because they are easy to read.", answer: "True" },
+                    { text: "A table of contents is usually placed at the beginning of a long document.", answer: "True" },
+                    { text: "You can accept or reject changes made by others when Track Changes is turned on.", answer: "True" },
+                    { text: "Bing and Google are examples of web browsers.", answer: "False" },
+                    { text: "You should share your personal information with strangers online to make friends.", answer: "False" },
+                    { text: "Bookmarks can be organized into folders for easy access.", answer: "True" },
+                    { text: "In Scratch, you can hide or show variables on the screen using checkboxes.", answer: "True" },
+                    { text: 'The "If...else" block does the same thing whether the test is true or false.', answer: "False" }
+                ],
+                fill: [
+                    { text: "The blank space at the edges of a page is called a ______.", answer: "margin" },
+                    { text: "Pressing ______ + Enter creates a line break without starting a new paragraph.", answer: "Shift" },
+                    { text: "______ fonts have no small lines at the ends of letters and are good for headings.", answer: "Sans-serif" },
+                    { text: "A ______ is a list at the beginning of a document showing all headings and page numbers.", answer: "table of contents" },
+                    { text: "The ______ block in Scratch is used to get information from the user.", answer: "ask" },
+                    { text: "A ______ is a diagram that shows the steps of a program using arrows and shapes.", answer: "flowchart" },
+                    { text: "You can use ______ marks around words to search for an exact match on the web.", answer: "quotation" },
+                    { text: "On social media, ______ settings control who can see your profile and posts.", answer: "privacy" },
+                    { text: "A math symbol like + or - used in programming is called an ______.", answer: "operator" },
+                    { text: "In Scratch, you can create a variable called ______ to store the answer of number1 + number2.", answer: "total" }
+                ],
+                short: [
+                    { text: "What is the difference between a paragraph break and a line break in a word processor?",
+                      keywords: ["paragraph break", "line break", "shift + enter", "shift+enter", "without a gap", "gap"] },
+                    { text: "Explain why it is important to check who wrote a website and when it was updated.",
+                      keywords: ["reliable", "trustworthy", "author", "who wrote", "updated", "date", "accurate", "correct information"] },
+                    { text: "What is a bookmark in a web browser, and why is it useful?",
+                      keywords: ["save", "website link", "visit again", "easily", "folder", "without searching", "later"] },
+                    { text: 'Explain the difference between an "If...then" block and an "If...else" block in Scratch.',
+                      keywords: ["if...else", "if else", "else", "otherwise", "true and false"] },
+                    { text: "Name three things you should do to stay safe when chatting online.",
+                      keywords: ["stranger", "personal information", "privacy", "trusted adult", "password", "unknown file", "do not share"] }
+                ],
+                order: [
+                    { text: "Order the steps to create a numbered list in a document.",
+                      options: [
+                        { value: "A", label: "Press Enter to make the next numbered item" },
+                        { value: "B", label: "Click the numbered list button" },
+                        { value: "C", label: "Open the document and type the first item" }
+                      ], answer: ["C", "B", "A"] },
+                    { text: "Order the steps to save a website as a bookmark.",
+                      options: [
+                        { value: "A", label: 'Click "Add bookmark" or the star icon' },
+                        { value: "B", label: "Open the website you want to save" },
+                        { value: "C", label: "Give the bookmark a name and save it" }
+                      ], answer: ["B", "A", "C"] },
+                    { text: "Order the steps for a simple quiz that checks if the user's answer is correct.",
+                      options: [
+                        { value: "A", label: 'Use "If...then" to compare the answer with the total' },
+                        { value: "B", label: 'Ask the user "What is the total?" and wait' },
+                        { value: "C", label: "Set total to number1 + number2" }
+                      ], answer: ["C", "B", "A"] },
+                    { text: "Order the steps to add a footer with page numbers to a document.",
+                      options: [
+                        { value: "A", label: "Type or insert the page number in the footer box" },
+                        { value: "B", label: "Open the Insert menu" },
+                        { value: "C", label: "Click on the Footer option" }
+                      ], answer: ["B", "C", "A"] },
+                    { text: "Order the steps to use Find and Replace in a document.",
+                      options: [
+                        { value: "A", label: 'Type the new word and click "Replace All"' },
+                        { value: "B", label: "Open the Find and Replace tool" },
+                        { value: "C", label: "Type the word you want to find" }
+                      ], answer: ["B", "C", "A"] },
+                    { text: "Order the steps to check if an online fact is reliable.",
+                      options: [
+                        { value: "A", label: "Compare the information with another trusted website" },
+                        { value: "B", label: "Check the author and the date it was published" },
+                        { value: "C", label: "Decide if the information is a fact or an opinion" }
+                      ], answer: ["B", "C", "A"] }
+                ]
+            }
+        };
+
+        // ============================================
+        // STATE
+        // ============================================
+        let currentStudentName = "";
+        let currentSet = "A";
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        function showNotes() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('exam-container').style.display = 'none';
+            document.getElementById('study-notes-container').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showLogin() {
+            document.getElementById('study-notes-container').style.display = 'none';
+            document.getElementById('exam-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================
+        // LOGIN
+        // ============================================
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nameInput = document.getElementById('studentName').value.trim();
+            const passInput = document.getElementById('studentPassword').value;
+            const setInput = document.getElementById('examSetSelect').value;
+            const errorMsg = document.getElementById('login-error');
+
+            if (passInput !== 'HJS2026') {
+                errorMsg.style.display = 'block';
+                errorMsg.innerText = 'Incorrect password. Please try again.';
+                return;
+            }
+            if (nameInput === '') {
+                errorMsg.style.display = 'block';
+                errorMsg.innerText = 'Please enter your name.';
+                return;
+            }
+
+            currentStudentName = nameInput;
+            currentSet = setInput;
+            errorMsg.style.display = 'none';
+
+            document.getElementById('display-name').innerText = currentStudentName;
+            document.getElementById('user-greeting').style.display = 'block';
+
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('exam-container').style.display = 'block';
+
+            renderExam(currentSet);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ============================================
+        // RENDER EXAM
+        // ============================================
+        function renderExam(setKey) {
+            const data = EXAM_DATA[setKey];
+            const form = document.getElementById('examForm');
+            let html = '';
+
+            // Update exam info card
+            document.getElementById('exam-title').textContent = "ICT Mid-Term Examination";
+            document.getElementById('exam-set-badge').textContent = data.label;
+
+            // Part 1 - MCQ
+            html += '<h2 class="section-title">Part 1: Multiple Choice <span>20 Marks</span></h2>';
+            data.mcq.forEach(function(q, idx) {
+                const n = idx + 1;
+                html += '<div class="question-card">';
+                html += '<div class="question-text">' + n + '. ' + q.text + ' <span class="marks-badge">1 Mark</span></div>';
+                html += '<div class="options">';
+                q.options.forEach(function(opt) {
+                    html += '<label><input type="radio" name="q' + n + '" value="' + opt.value + '"> <span>' + opt.value + ') ' + opt.label + '</span></label>';
+                });
+                html += '</div></div>';
+            });
+
+            // Part 2 - True/False
+            html += '<h2 class="section-title">Part 2: True or False <span>10 Marks</span></h2>';
+            data.tf.forEach(function(q, idx) {
+                const n = 21 + idx;
+                html += '<div class="question-card">';
+                html += '<div class="question-text">' + n + '. ' + q.text + ' <span class="marks-badge">1 Mark</span></div>';
+                html += '<div class="options">';
+                html += '<label><input type="radio" name="q' + n + '" value="True"> <span>True</span></label>';
+                html += '<label><input type="radio" name="q' + n + '" value="False"> <span>False</span></label>';
+                html += '</div></div>';
+            });
+
+            // Part 3 - Fill in the blanks
+            html += '<h2 class="section-title">Part 3: Fill in the Blank <span>20 Marks</span></h2>';
+            data.fill.forEach(function(q, idx) {
+                const n = 31 + idx;
+                html += '<div class="question-card">';
+                html += '<div class="question-text">' + n + '. ' + q.text + ' <span class="marks-badge">2 Marks</span></div>';
+                html += '<input type="text" class="textarea-input" name="q' + n + '" placeholder="Type your answer here...">';
+                html += '</div>';
+            });
+
+            // Part 4 - Short Questions
+            html += '<h2 class="section-title">Part 4: Short Questions <span>20 Marks</span></h2>';
+            data.short.forEach(function(q, idx) {
+                const n = 41 + idx;
+                html += '<div class="question-card">';
+                html += '<div class="question-text">' + n + '. ' + q.text + ' <span class="marks-badge">4 Marks</span></div>';
+                html += '<textarea class="textarea-input" name="q' + n + '" placeholder="Type your answer here..."></textarea>';
+                html += '</div>';
+            });
+
+            // Part 5 - Order
+            html += '<h2 class="section-title">Part 5: Order the Block Code <span>30 Marks</span></h2>';
+            html += '<p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.95rem;">Select the correct sequence. (5 marks per question)</p>';
+            data.order.forEach(function(q, idx) {
+                const n = 46 + idx;
+                html += '<div class="question-card">';
+                html += '<div class="question-text">' + n + '. ' + q.text + ' <span class="marks-badge">5 Marks</span></div>';
+                html += '<div class="order-container">';
+                for (let step = 1; step <= 3; step++) {
+                    const stepLabel = step === 1 ? '1st' : step === 2 ? '2nd' : '3rd';
+                    html += '<div class="order-step">';
+                    html += '<span class="order-label">' + stepLabel + ' Step:</span>';
+                    html += '<select class="order-select" name="q' + n + '_' + step + '">';
+                    html += '<option value="">-- Select Block --</option>';
+                    q.options.forEach(function(opt) {
+                        html += '<option value="' + opt.value + '">' + opt.label + '</option>';
+                    });
+                    html += '</select></div>';
+                }
+                html += '</div></div>';
+            });
+
+            html += '<button type="submit" id="submitBtn" class="submit-btn">Submit Final Exam</button>';
+            form.innerHTML = html;
+        }
+
+        // ============================================
+        // NORMALIZE
+        // ============================================
+        function normalizeText(str) {
+            return String(str).toLowerCase().replace(/[\s\-_.,'"!?()]/g, '');
+        }
+
+        // ============================================
+        // SUBMIT / SCORE
+        // ============================================
+        document.getElementById('examForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const data = EXAM_DATA[currentSet];
+            let totalScore = 0;
+            let resultHTML = '';
+            let qCounter = 1;
+
+            // ---- MCQ ----
+            data.mcq.forEach(function(q, idx) {
+                const n = idx + 1;
+                const sel = document.querySelector('input[name="q' + n + '"]:checked');
+                const userVal = sel ? sel.value : '';
+                const correctOpt = q.options.find(function(o) { return o.value === q.answer; });
+                const correctDisplay = q.answer + ') ' + (correctOpt ? correctOpt.label : '');
+
+                let userDisplay;
+                if (userVal) {
+                    const userOpt = q.options.find(function(o) { return o.value === userVal; });
+                    userDisplay = userVal + ') ' + (userOpt ? userOpt.label : '');
+                } else {
+                    userDisplay = '<span class="blank-text">Not answered</span>';
+                }
+
+                const isCorrect = userVal === q.answer;
+                if (isCorrect) totalScore += 1;
+
+                resultHTML += '<div class="result-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
+                resultHTML += '<strong><span class="q-num">Q' + n + '</span>' + q.text + '</strong>';
+                resultHTML += '<div class="answer-detail">';
+                resultHTML += '<div class="your-answer-text">Your answer: ' + userDisplay + '</div>';
+                resultHTML += '<div class="correct-answer-text">Correct answer: ' + correctDisplay + '</div>';
+                resultHTML += '</div></div>';
+                qCounter++;
+            });
+
+            // ---- TRUE/FALSE ----
+            data.tf.forEach(function(q, idx) {
+                const n = 21 + idx;
+                const sel = document.querySelector('input[name="q' + n + '"]:checked');
+                const userVal = sel ? sel.value : '';
+                const userDisplay = userVal ? userVal : '<span class="blank-text">Not answered</span>';
+                const isCorrect = userVal === q.answer;
+                if (isCorrect) totalScore += 1;
+
+                resultHTML += '<div class="result-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
+                resultHTML += '<strong><span class="q-num">Q' + n + '</span>' + q.text + '</strong>';
+                resultHTML += '<div class="answer-detail">';
+                resultHTML += '<div class="your-answer-text">Your answer: ' + userDisplay + '</div>';
+                resultHTML += '<div class="correct-answer-text">Correct answer: ' + q.answer + '</div>';
+                resultHTML += '</div></div>';
+            });
+
+            // ---- FILL IN THE BLANKS ----
+            data.fill.forEach(function(q, idx) {
+                const n = 31 + idx;
+                const raw = document.querySelector('input[name="q' + n + '"]').value.trim();
+                const userNorm = normalizeText(raw);
+                const correctNorm = normalizeText(q.answer);
+                const isCorrect = userNorm !== '' && (userNorm === correctNorm || correctNorm.indexOf(userNorm) !== -1 || userNorm.indexOf(correctNorm) !== -1);
+
+                if (isCorrect) totalScore += 2;
+
+                resultHTML += '<div class="result-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
+                resultHTML += '<strong><span class="q-num">Q' + n + '</span>' + q.text + '</strong>';
+                resultHTML += '<div class="answer-detail">';
+                resultHTML += '<div class="your-answer-text">Your answer: ' + (raw ? raw : '<span class="blank-text">Blank</span>') + '</div>';
+                resultHTML += '<div class="correct-answer-text">Correct answer: ' + q.answer + '</div>';
+                resultHTML += '</div></div>';
+            });
+
+            // ---- SHORT QUESTIONS ----
+            data.short.forEach(function(q, idx) {
+                const n = 41 + idx;
+                const raw = document.querySelector('textarea[name="q' + n + '"]').value.trim();
+                const lower = raw.toLowerCase();
+                let matched = null;
+                for (let k = 0; k < q.keywords.length; k++) {
+                    if (lower.indexOf(q.keywords[k]) !== -1) {
+                        matched = q.keywords[k];
+                        break;
+                    }
+                }
+                const isCorrect = matched !== null;
+                if (isCorrect) totalScore += 4;
+
+                resultHTML += '<div class="result-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
+                resultHTML += '<strong><span class="q-num">Q' + n + '</span>' + q.text + '</strong>';
+                resultHTML += '<div class="answer-detail">';
+                resultHTML += '<div class="your-answer-text">Your answer: ' + (raw ? '"' + raw + '"' : '<span class="blank-text">Blank</span>') + '</div>';
+                if (isCorrect) {
+                    resultHTML += '<div class="correct-answer-text">Correct! (Matched concept: "' + matched + '")</div>';
+                } else {
+                    resultHTML += '<div class="correct-answer-text">Expected concepts: ' + q.keywords.join(' OR ') + '</div>';
+                }
+                resultHTML += '</div></div>';
+            });
+
+            // ---- ORDER ----
+            data.order.forEach(function(q, idx) {
+                const n = 46 + idx;
+                const userVals = [];
+                let isCorrect = true;
+                for (let step = 1; step <= 3; step++) {
+                    const v = document.querySelector('select[name="q' + n + '_' + step + '"]').value;
+                    userVals.push(v || '');
+                    if (v !== q.answer[step - 1]) isCorrect = false;
+                }
+
+                function lookup(val) {
+                    if (!val) return '<span class="blank-text">(blank)</span>';
+                    const opt = q.options.find(function(o) { return o.value === val; });
+                    return opt ? val + ') ' + opt.label : val;
+                }
+
+                const userDisplay = userVals.map(function(v, i) { return (i + 1) + ') ' + lookup(v); }).join(' &nbsp;→&nbsp; ');
+                const correctDisplay = q.answer.map(function(v, i) { return (i + 1) + ') ' + lookup(v); }).join(' &nbsp;→&nbsp; ');
+
+                if (isCorrect) totalScore += 5;
+
+                resultHTML += '<div class="result-item ' + (isCorrect ? 'correct' : 'incorrect') + '">';
+                resultHTML += '<strong><span class="q-num">Q' + n + '</span>' + q.text + '</strong>';
+                resultHTML += '<div class="answer-detail">';
+                resultHTML += '<div class="your-answer-text">Your order: ' + userDisplay + '</div>';
+                resultHTML += '<div class="correct-answer-text">Correct order: ' + correctDisplay + '</div>';
+                resultHTML += '</div></div>';
+            });
+
+            // ---- SHOW RESULTS ----
+            document.getElementById('result-greeting').innerText = currentStudentName + "'s Examination Report";
+            document.getElementById('result-set-label').innerText = data.label + ' — Your Score';
+            document.getElementById('score-display').innerHTML = totalScore + '<span>/100</span>';
+            document.getElementById('detailed-results').innerHTML = '<h3>Detailed Question Review</h3>' + resultHTML;
+
+            document.querySelector('.exam-info-card').style.display = 'none';
+            document.getElementById('examForm').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
